@@ -17,3 +17,28 @@ This report presents the implementation and empirical evaluation of sorting and 
 Based on the execution data generated in `results.csv`:
 * **Merge Sort** demonstrates highly predictable execution times and stable comparison counts regardless of initial data patterns (random, sorted, or duplicates).
 * **Quick Sort** shows exceptional performance on arrays with high duplication due to 3-way partitioning grouping equal elements efficiently.
+
+## 5. Asymptotic Bounds Summary
+
+| Algorithm | Best Case | Average Case | Worst Case | Reason / Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **Insertion Sort** | $\Omega(n)$ | $\Theta(n^2)$ | $O(n^2)$ | Linear on already sorted array; quadratic on random/reverse data. |
+| **Merge Sort** | $\Theta(n \log n)$ | $\Theta(n \log n)$ | $\Theta(n \log n)$ | Divide-and-conquer with guaranteed balanced splits and linear merge. |
+| **Quick Sort** | $\Omega(n \log n)$ | $\Theta(n \log n)$ | $O(n^2)$ | Randomized pivot and 3-way partition prevent $O(n^2)$ on sorted/duplicate inputs. |
+| **Quick Select** | $\Omega(n)$ | $\Theta(n)$ | $O(n^2)$ | Expected linear time via single-side partitioning; worst case mitigated by random pivot. |
+
+## 6. Performance Plots
+
+### Time vs n
+![Time vs n](time_vs_n.png)
+
+### Max Recursion Depth vs n
+![Depth vs n](depth_vs_n.png)
+
+### Ratio vs n ($\Theta$ Verification)
+![Ratio vs n](ratio_vs_n.png)
+
+## 7. Discussion & Empirical Analysis
+The empirical measurements closely match theoretical expectations. For Merge Sort and Quick Sort, the ratio plots ($\text{Comparisons} / (n \log n))$ stabilize into horizontal lines as $n$ grows, confirming $\Theta(n \log n)$ behavior. Minor fluctuations at smaller $n$ ($1,000$) are attributed to JVM warm-up effects, Just-In-Time (JIT) compilation, and garbage collection overhead. 
+
+For Quick Sort, the 3-way partition successfully handles arrays with heavy duplicate values, keeping recursion depth remarkably low (bounded to $O(\log n)$), while Quick Select operates iteratively without recursion stack overhead (depth = 0). Overall, the optimizations (reusable buffer, insertion sort cutoff, randomized 3-way partitioning) successfully prevent memory churn and stack overflows.
