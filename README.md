@@ -22,3 +22,9 @@
 ### Running Tests (JUnit 5)
 ```bash
 mvn test
+
+### Running Benchmark
+
+```bash
+mvn clean compile
+java -cp target/classes org.example.BenchmarkRunner
