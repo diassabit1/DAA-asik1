@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b3ea734-e31e-4968-8ca9-9506e373cf9d" name="Changes" comment="" />
+    <list default="true" id="2b3ea734-e31e-4968-8ca9-9506e373cf9d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Partition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAA-asik1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/depth_vs_n.png" beforeDir="false" afterPath="$PROJECT_DIR$/depth_vs_n.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ratio_vs_n.png" beforeDir="false" afterPath="$PROJECT_DIR$/ratio_vs_n.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/results.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BenchmarkRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BenchmarkRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QuickSelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QuickSelect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/SortingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/SortingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/BenchmarkRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/BenchmarkRunner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Partition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Partition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/QuickSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/QuickSelect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/QuickSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/QuickSort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time_vs_n.png" beforeDir="false" afterPath="$PROJECT_DIR$/time_vs_n.png" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +63,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "feature/select",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.selected.package.jshint": "",

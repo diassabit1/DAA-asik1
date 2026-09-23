@@ -9,8 +9,5 @@
         <module name="DAA-asik1" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DAA-asik1" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

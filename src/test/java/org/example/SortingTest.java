@@ -1,6 +1,7 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -10,10 +11,12 @@ public class SortingTest {
 
     @Test
     public void testMergeSortCorrectness() {
-        Random random = new Random();
+        Random random = new Random(42);
+
         for (int i = 0; i < 100; i++) {
             int n = 100 + random.nextInt(900);
             int[] original = new int[n];
+
             for (int j = 0; j < n; j++) {
                 original[j] = random.nextInt(10000) - 5000;
             }
@@ -22,8 +25,8 @@ public class SortingTest {
             Arrays.sort(expected);
 
             int[] actual = original.clone();
-            Metrics metrics = new Metrics();
-            MergeSort.sort(actual, metrics);
+
+            MergeSort.sort(actual, new Metrics());
 
             assertArrayEquals(expected, actual);
         }
@@ -31,10 +34,12 @@ public class SortingTest {
 
     @Test
     public void testQuickSortCorrectness() {
-        Random random = new Random();
+        Random random = new Random(42);
+
         for (int i = 0; i < 100; i++) {
             int n = 100 + random.nextInt(900);
             int[] original = new int[n];
+
             for (int j = 0; j < n; j++) {
                 original[j] = random.nextInt(10000) - 5000;
             }
@@ -43,8 +48,8 @@ public class SortingTest {
             Arrays.sort(expected);
 
             int[] actual = original.clone();
-            Metrics metrics = new Metrics();
-            QuickSort.sort(actual, metrics);
+
+            QuickSort.sort(actual, new Metrics());
 
             assertArrayEquals(expected, actual);
         }
@@ -52,52 +57,65 @@ public class SortingTest {
 
     @Test
     public void testEdgeCases() {
-        Metrics metrics = new Metrics();
-
         int[] empty = {};
-        MergeSort.sort(empty, metrics);
-        QuickSort.sort(empty, metrics);
+        MergeSort.sort(empty, new Metrics());
+        QuickSort.sort(empty, new Metrics());
         assertArrayEquals(new int[]{}, empty);
 
-        int[] single = {42};
-        MergeSort.sort(single, metrics);
-        QuickSort.sort(single, metrics);
-        assertArrayEquals(new int[]{42}, single);
+        int[] singleMerge = {42};
+        int[] singleQuick = {42};
 
-        int[] duplicates = {5, 2, 5, 2, 5, 2, 1, 1};
-        int[] expected = duplicates.clone();
-        Arrays.sort(expected);
+        MergeSort.sort(singleMerge, new Metrics());
+        QuickSort.sort(singleQuick, new Metrics());
 
-        int[] actualMerge = duplicates.clone();
-        MergeSort.sort(actualMerge, metrics);
-        assertArrayEquals(expected, actualMerge);
+        assertArrayEquals(new int[]{42}, singleMerge);
+        assertArrayEquals(new int[]{42}, singleQuick);
 
-        int[] actualQuick = duplicates.clone();
-        QuickSort.sort(actualQuick, metrics);
-        assertArrayEquals(expected, actualQuick);
+        int[] equalMerge = {5, 5, 5, 5, 5, 5};
+        int[] equalQuick = equalMerge.clone();
+
+        MergeSort.sort(equalMerge, new Metrics());
+        QuickSort.sort(equalQuick, new Metrics());
+
+        assertArrayEquals(new int[]{5, 5, 5, 5, 5, 5}, equalMerge);
+        assertArrayEquals(new int[]{5, 5, 5, 5, 5, 5}, equalQuick);
+
+        int[] sortedMerge = {1, 2, 3, 4, 5, 6, 7, 8};
+        int[] sortedQuick = sortedMerge.clone();
+
+        MergeSort.sort(sortedMerge, new Metrics());
+        QuickSort.sort(sortedQuick, new Metrics());
+
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7, 8}, sortedMerge);
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7, 8}, sortedQuick);
     }
 
     @Test
     public void testQuickSortDepth() {
         int n = 100000;
         int[] sorted = new int[n];
+
         for (int i = 0; i < n; i++) {
             sorted[i] = i;
         }
 
         Metrics metrics = new Metrics();
+
         QuickSort.sort(sorted, metrics);
 
         int maxAllowedDepth = (int) (2 * Math.log(n) / Math.log(2));
+
         assertTrue(metrics.getMaxDepth() <= maxAllowedDepth);
     }
 
     @Test
     public void testQuickSelect() {
-        Random random = new Random();
+        Random random = new Random(42);
+
         for (int i = 0; i < 100; i++) {
             int n = 50;
             int[] original = new int[n];
+
             for (int j = 0; j < n; j++) {
                 original[j] = random.nextInt(1000);
             }
@@ -106,10 +124,37 @@ public class SortingTest {
             Arrays.sort(sorted);
 
             int k = random.nextInt(n);
-            Metrics metrics = new Metrics();
-            int result = QuickSelect.select(original, k, metrics);
+
+            int result = QuickSelect.select(
+                    original,
+                    k,
+                    new Metrics()
+            );
 
             assertEquals(sorted[k], result);
         }
+    }
+
+    @Test
+    public void testQuickSelectInvalidInput() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> QuickSelect.select(new int[]{1, 2, 3}, -1, new Metrics())
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> QuickSelect.select(new int[]{1, 2, 3}, 3, new Metrics())
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> QuickSelect.select(new int[]{}, 0, new Metrics())
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> QuickSelect.select(null, 0, new Metrics())
+        );
     }
 }

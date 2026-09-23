@@ -3,7 +3,7 @@ package org.example;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Locale;
 import java.util.Random;
 
 public class BenchmarkRunner {
@@ -11,34 +11,37 @@ public class BenchmarkRunner {
     public static void main(String[] args) {
         int[] sizes = {1000, 10000, 100000, 1000000};
         String[] types = {"random", "sorted", "duplicates"};
-        String[] algorithms = {"MergeSort", "QuickSort"};
+        String[] algorithms = {"MergeSort", "QuickSort", "QuickSelect"};
+
+        Random random = new Random(42);
 
         try (FileWriter writer = new FileWriter("results.csv")) {
             writer.append("algorithm,input,n,time_ms,comparisons,max_depth\n");
 
-            for (String algo : algorithms) {
+            for (String algorithm : algorithms) {
                 for (String type : types) {
                     for (int n : sizes) {
-                        if (algo.equals("QuickSort") && n == 1000000 && type.equals("sorted")) {
-                            continue;
-                        }
 
                         double[] times = new double[5];
                         long comparisons = 0;
                         int maxDepth = 0;
 
                         for (int run = 0; run < 5; run++) {
-                            int[] original = generateArray(n, type);
-                            int[] array = original.clone();
+                            int[] original = generateArray(n, type, random);
                             Metrics metrics = new Metrics();
 
-                            if (algo.equals("MergeSort")) {
+                            if (algorithm.equals("MergeSort")) {
+                                int[] array = original.clone();
                                 MergeSort.sort(array, metrics);
-                            } else if (algo.equals("QuickSort")) {
+                            } else if (algorithm.equals("QuickSort")) {
+                                int[] array = original.clone();
                                 QuickSort.sort(array, metrics);
+                            } else {
+                                QuickSelect.select(original, n / 2, metrics);
                             }
 
                             times[run] = metrics.getElapsedTimeMs();
+
                             if (run == 4) {
                                 comparisons = metrics.getComparisons();
                                 maxDepth = metrics.getMaxDepth();
@@ -48,42 +51,55 @@ public class BenchmarkRunner {
                         Arrays.sort(times);
                         double medianTime = times[2];
 
-                        writer.append(algo)
-                                .append(",").append(type)
-                                .append(",").append(String.valueOf(n))
-                                .append(",").append(String.format("%.4f", medianTime))
-                                .append(",").append(String.valueOf(comparisons))
-                                .append(",").append(String.valueOf(maxDepth))
-                                .append("\n");
+                        String line = String.format(
+                                Locale.US,
+                                "%s,%s,%d,%.4f,%d,%d%n",
+                                algorithm,
+                                type,
+                                n,
+                                medianTime,
+                                comparisons,
+                                maxDepth
+                        );
+
+                        writer.append(line);
                     }
                 }
             }
+
             System.out.println("Benchmark completed. results.csv generated successfully.");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static int[] generateArray(int n, String type) {
-        Random random = new Random(42);
+    private static int[] generateArray(int n, String type, Random random) {
         int[] a = new int[n];
+
         switch (type) {
             case "random":
                 for (int i = 0; i < n; i++) {
                     a[i] = random.nextInt();
                 }
                 break;
+
             case "sorted":
                 for (int i = 0; i < n; i++) {
                     a[i] = i;
                 }
                 break;
+
             case "duplicates":
                 for (int i = 0; i < n; i++) {
                     a[i] = random.nextInt(10);
                 }
                 break;
+
+            default:
+                throw new IllegalArgumentException("Unknown input type: " + type);
         }
+
         return a;
     }
 }
